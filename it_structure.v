@@ -35,7 +35,7 @@ Section it_morphism.
     := fun i x =>
          (ap g (point_commute i x))
            @ (point_commute i (poly_map (point Σ i) f x))
-           @ ap (it_point A₃ i) (poly_map_compose (point Σ i) f g x)^.
+           @ ap (it_point A₃ i) (poly_map_compose g f x)^.
 End it_morphism.
 
 Arguments it_morph {Σ} {A₁ A₂} f.
@@ -124,7 +124,7 @@ Section uniqueness_inductive_types.
             (ap _ (it_rec_beta T₁ i x))
               @ (it_rec_beta T₂ i (poly_map (point Σ i) (it_to_it T₂ T₁).1 x))
               @ (ap (it_point T₂ i)
-                    (((poly_map_compose (point Σ i) _ _ x)^)
+                    (((poly_map_compose _ _ x)^)
                        @ (fam_eq _ _ x y)
                        @ (poly_map_id (point Σ i) x))
                 )).
