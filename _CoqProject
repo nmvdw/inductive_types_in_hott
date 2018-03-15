@@ -1,0 +1,5 @@
+-R . "IT" COQC = hoqc COQDEP = hoqdep
+
+polynomial.v
+polynomial_lemma.v
+it_structure.v
