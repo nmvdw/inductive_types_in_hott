@@ -3,10 +3,6 @@ Require Import polynomial.
 Require Import polynomial_lemma.
 Require Import it_structure.
 
-Definition generic_specification (Y : Type)
-  := forall (X : Type) (P : polynomial) (u : poly_act P X),
-    poly_fam P (fun _ : X => Y) u -> Y.
-
 Section generic_programming.
   Variable (Y : Type).
 
@@ -17,7 +13,7 @@ Section generic_programming.
       g_left : Y -> Y ;
       g_right : Y -> Y
     }.
-  
+
   Fixpoint to_spec
            (G : generic_definition)
            (X : Type)
@@ -79,7 +75,7 @@ Section example_length.
   Definition length_nil
     : list_length nil = 0.
   Proof.
-    unfold list_length, extend ; simpl.
+    compute.
     rewrite it_ind_beta.
     reflexivity.
   Defined.
@@ -87,7 +83,7 @@ Section example_length.
   Definition length_cons (a : A) (t : T)
     : list_length (cons a t) = Peano.plus 1 (list_length t).
   Proof.
-    unfold list_length, extend ; simpl.
+    compute.
     rewrite it_ind_beta.
     reflexivity.
   Defined.
