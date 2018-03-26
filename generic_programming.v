@@ -60,11 +60,11 @@ Arguments extend {Y Σ} T G _.
 
 Section example_length.
   Definition generic_length : generic_definition nat
-    := {|g_const := fun _ _ => 0 ;
+    := {|g_const := fun _ _ => 1 ;
          g_prod := fun n => Peano.plus (fst n) (snd n) ;
          g_left := idmap ;
          g_right := idmap ;
-         g_id := S
+         g_id := idmap
        |}.
 
   Variable (A : Type).
@@ -84,7 +84,7 @@ Section example_length.
   Definition list_length := extend L generic_length.
 
   Definition length_nil
-    : list_length nil = 0.
+    : list_length nil = 1.
   Proof.
     ind_compute.
     reflexivity.
@@ -112,19 +112,18 @@ Section example_length.
   Definition tree_weight := extend B generic_length.
   
   Definition weight_leaf
-    : tree_weight leaf = 0.
+    : tree_weight leaf = 1.
   Proof.
     ind_compute.
     reflexivity.
   Defined.
 
   Definition weight_node (tl : B) (a : A) (tr : B)
-    : tree_weight (node tl a tr) = Peano.plus (tree_weight tl).+1 (tree_weight tr).+1.
+    : tree_weight (node tl a tr) = Peano.plus (Peano.plus (tree_weight tl) 1) (tree_weight tr).
   Proof.
     unfold tree_weight, extend.
     rewrite ?it_ind_beta.
     unfold to_spec ; cbn.
-    rewrite plus_n0.
     reflexivity.
   Defined.     
 End example_length.
